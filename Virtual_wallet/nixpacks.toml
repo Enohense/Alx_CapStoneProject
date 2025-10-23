@@ -1,13 +1,17 @@
 providers = ["python"]
 
+[variables]
+PYTHONUNBUFFERED = "1"
+PYTHONDONTWRITEBYTECODE = "1"
+
 [phases.setup]
-# Python + toolchain for psycopg2/Pillow/etc.
-nixPkgs = ["python311", "gcc", "libffi", "openssl", "zlib", "postgresql"]
+# Python + toolchain for psycopg2
+nixPkgs = ["python311", "gcc", "libffi", "openssl", "zlib", "postgresql", "pkg-config"]
 
 [phases.install]
 cmds = [
-  "pip install --upgrade pip",
-  "pip install -r requirements.txt"
+  "python3 -m pip install --upgrade pip wheel setuptools",
+  "python3 -m pip install -r requirements.txt"
 ]
 
 [phases.build]
@@ -16,5 +20,4 @@ cmds = [
 ]
 
 [start]
-# Run DB migrations at start, then launch Gunicorn on the port Railway provides
 cmd = "python manage.py migrate && gunicorn config.wsgi:application --bind 0.0.0.0:${PORT} --log-file -"
