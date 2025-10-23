@@ -32,4 +32,4 @@ cmds = [
 ]
 
 [start]
-cmd = "export DJANGO_SUPERUSER_USERNAME=admin && export DJANGO_SUPERUSER_EMAIL=williamssandra803@gmail.com && export DJANGO_SUPERUSER_PASSWORD=s@ndR@! && /opt/venv/bin/python manage.py migrate && /opt/venv/bin/python manage.py createsuperuser --noinput && /opt/venv/bin/gunicorn config.wsgi:application --bind 0.0.0.0:${PORT} --log-file -"
+cmd = "export DJANGO_SUPERUSER_USERNAME=EnohenseAdmin && export DJANGO_SUPERUSER_EMAIL=williamssandra803@gmail.com && export DJANGO_SUPERUSER_PASSWORD=s@ndR@! && /opt/venv/bin/python manage.py migrate && /opt/venv/bin/python manage.py createsuperuser --noinput && /opt/venv/bin/gunicorn config.wsgi:application --bind 0.0.0.0:${PORT} --log-file -"
