@@ -13,9 +13,21 @@ SECRET_KEY = config(
 DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = config(
-    'ALLOWED_HOSTS', default='localhost,127.0.0.1').split(',')
+    'ALLOWED_HOSTS', default='.up.railway.app,localhost,127.0.0.1').split(',')
 
-# Application definition
+CSRF_TRUSTED_ORIGINS = config(
+    'CSRF_TRUSTED_ORIGINS',
+    default='https://*.up.railway.app'
+).split(',')
+
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+USE_X_FORWARDED_HOST = True
+
+# Secure cookies in prod
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'Lax'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
