@@ -33,9 +33,12 @@ class LedgerEntry(models.Model):
         return f"{self.entry_type} - {self.wallet.user.username} - {self.amount}"
 
     def save(self, *args, **kwargs):
-        # Ledger entries are immutable - prevent updates
-        if self.pk is not None:
-            raise ValueError("Ledger entries cannot be modified once created")
+        # Ledger entries are immutable - prevent updates (but allow initial creation)
+        if self.pk is not None:  # Only raise error if trying to UPDATE existing entry
+            # Check if this is actually an update by seeing if it exists in database
+            if LedgerEntry.objects.filter(pk=self.pk).exists():
+                raise ValueError(
+                    "Ledger entries cannot be modified once created")
         super().save(*args, **kwargs)
 
     class Meta:

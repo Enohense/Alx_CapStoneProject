@@ -9,3 +9,7 @@ class WalletAdmin(admin.ModelAdmin):
     list_filter = ['status', 'currency', 'created_at']
     search_fields = ['user__username', 'id']
     readonly_fields = ['id', 'created_at', 'updated_at']
+
+
+fields = ['user', 'balance', 'pending_balance', 'currency', 'status',
+          'daily_limit', 'id', 'created_at', 'updated_at']

@@ -12,9 +12,10 @@ class UserProfile(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, related_name='profile')
-    phone_number = models.CharField(max_length=15, unique=True)
+    phone_number = models.CharField(
+        max_length=15, unique=True, blank=True, null=True)
     bvn = models.CharField(max_length=11, blank=True,
-                           null=True)  # Bank Verification Number
+                           null=True)
     is_verified = models.BooleanField(default=False)
     pin_hash = models.CharField(
         max_length=128, blank=True, null=True)  # Will be hashed

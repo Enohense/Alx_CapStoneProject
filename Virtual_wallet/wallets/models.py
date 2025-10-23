@@ -65,3 +65,11 @@ class Wallet(models.Model):
 def create_user_wallet(sender, instance, created, **kwargs):
     if created:
         Wallet.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def create_user_wallet(sender, instance, created, **kwargs):
+    if created:
+        # Only create wallet if one doesn't exist
+        if not hasattr(instance, 'wallet'):
+            Wallet.objects.create(user=instance)
